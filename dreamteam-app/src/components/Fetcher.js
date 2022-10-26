@@ -10,6 +10,9 @@ const Fetcher = {
 
   icon(profileIconId) {
     return `http://ddragon.leagueoflegends.com/cdn/12.20.1/img/profileicon/${profileIconId}.png`
+  },
+
+  championCard(champion) {
+    return `http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${champion}_0.jpg`
   }
-  
 }

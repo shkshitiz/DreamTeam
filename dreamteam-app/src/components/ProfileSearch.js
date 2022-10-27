@@ -1,19 +1,12 @@
 import {useState} from 'react'
 import Fetcher from './Fetcher'
 
-function Profile() {
+function ProfileSearch() {
   const [summoner, setSummoner] = useState("")
 
   const details = {profile: {}, games: []}
 
-  // const searchProfile = (summoner) => {
-  //   fetch(`https://oc1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summoner}?api_key=${process.env.REACT_APP_API_KEY}`)
-  //   .then(res => res.json())
-  //   .then(profile => {
-  //     console.log(profile)
-  //     console.log(`http://ddragon.leagueoflegends.com/cdn/12.20.1/img/profileicon/${profile.profileIconId}.png`)
-  //   })
-  // }
+ 
 
   const handleSubmit = async(event) => {
     event.preventDefault()
@@ -21,12 +14,13 @@ function Profile() {
 
     // Fetching all required data
     Fetcher.profile(summoner)
-      .then(({profileIconId, summonerLevel, puuid}) => 
-        details.profile = {profileIconId, summonerLevel, puuid})
+      .then(({name, profileIconId, summonerLevel, puuid}) => 
+        details.profile = {name, profileIconId, summonerLevel, puuid})
       .then(res => details.games = Fetcher.queues(details.profile.puuid))
       .then(res => res.forEach((queue, index) => {
         details.games[index] = Fetcher.match(queue, details.profile.puuid)
-      })).then(res => console.log(details))
+      }))
+      .then(res => console.log(details))
   }
 
   return (
@@ -43,10 +37,19 @@ function Profile() {
   )
 }
 
+export default ProfileSearch
+
+
 // scraps
 // fetch(`https://sea.api.riotgames.com/lol/match/v5/matches/OC1_547148976?api_key=${process.env.REACT_APP_API_KEY}`)
 // .then(res => res.json())
 // .then(res => console.log(res.info.teams[1].win))
 
-
-export default Profile
+// const searchProfile = (summoner) => {
+//   fetch(`https://oc1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summoner}?api_key=${process.env.REACT_APP_API_KEY}`)
+//   .then(res => res.json())
+//   .then(profile => {
+//     console.log(profile)
+//     console.log(`http://ddragon.leagueoflegends.com/cdn/12.20.1/img/profileicon/${profile.profileIconId}.png`)
+//   })
+// }

@@ -1,12 +1,13 @@
 import Fetcher from "./Fetcher";
 
 function Card(gameIndex) {
+  const game = gameIndex.gameIndex
   return(
     <div className="Card">
-      <h2>{gameIndex.championName}</h2>
-      <img src={Fetcher.championCard(gameIndex.championName)} alt='champion'/>
-      <p>{gameIndex.kills}/{gameIndex.deaths}/{gameIndex.assists}</p>
-      <p>{(gameIndex.kills + gameIndex.assists) / gameIndex.deaths}:1 KDA</p>
+      <h3>{game.championName}</h3>
+      <img src={Fetcher.championCard(game.championName)} alt='champion'/>
+      <p>{game.kills}/{game.deaths}/{game.assists}</p>
+      <p>{(game.kills + game.assists) / game.deaths}:1 KDA</p>
     </div>
   )
 }

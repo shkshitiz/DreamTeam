@@ -1,5 +1,4 @@
 function Profile({profile}) {
-  console.log(profile)
   return(
     <section className="profile">
       <h2>{profile.name}</h2>

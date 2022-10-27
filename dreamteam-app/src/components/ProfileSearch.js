@@ -14,7 +14,6 @@ function ProfileSearch() {
 
   const handleSubmit = async(event) => {
     event.preventDefault()
-    console.log(summoner)
 
     // Fetching all required data
     Fetcher.profile(summoner)
@@ -24,10 +23,11 @@ function ProfileSearch() {
     Fetcher.queues(profile.puuid)
       .then(res => {
         let arr = res
+        console.log(arr)
         arr.forEach(queue => {
           Fetcher.match(queue, profile.puuid)
             .then(res => {
-              setGames([...games, res])
+              games.push(res)
             })
         })
       })

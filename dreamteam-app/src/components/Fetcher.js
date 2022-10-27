@@ -1,11 +1,21 @@
 const Fetcher = {
   profile(summoner) {
-    fetch(`https://oc1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summoner}?api_key=${process.env.REACT_APP_API_KEY}`)
+    return fetch(`https://oc1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summoner}?api_key=${process.env.REACT_APP_API_KEY}`)
     .then(res => res.json())
   },
 
-  match(queue) {
-    fetch(`https://sea.api.riotgames.com/lol/match/v5/matches/${queue}?api_key=${process.env.REACT_APP_API_KEY}`)
+  queues(puuid){
+    return fetch(`https://sea.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=5&api_key=${process.env.REACT_APP_API_KEY}`)
+    .then(res => res.json())
+  },
+
+  match(queue, puuid) {
+    return fetch(`https://sea.api.riotgames.com/lol/match/v5/matches/${queue}?api_key=${process.env.REACT_APP_API_KEY}`)
+    .then(res => res.json())
+    .then(res => {
+      let obj = res.info.participants
+      return obj.filter(participant => participant.puuid === puuid)
+    })
   },
 
   icon(profileIconId) {
@@ -16,3 +26,5 @@ const Fetcher = {
     return `http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${champion}_0.jpg`
   }
 }
+
+export default Fetcher

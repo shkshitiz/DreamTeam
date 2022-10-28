@@ -10,8 +10,6 @@ function ProfileSearch() {
 
   // const [details, setDetails] = useState({profile: {}, games: []})
 
-
-
   const handleSubmit = async(event) => {
     event.preventDefault()
 
